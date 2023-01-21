@@ -2,8 +2,15 @@
 //     completed: number
 // }
 
-export function HabitDay(/*props: HabitDayProps*/) {
+interface HabitDayProps {
+    completedH: number
+    amountH: number
+}
+
+import { DayPopover } from "./DayPopover";
+
+export function HabitDay({completedH, amountH}: HabitDayProps) {
     return (
-        <div className="w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg"></div>
+        <DayPopover completed={completedH} amount={amountH}/>
     )
 }
