@@ -29,7 +29,7 @@ export function CreateHabit() {
                 <Text className="mt-6 text-white font-semibold text-base">
                     Qual seu comprometimento?
                 </Text>
-                <TextInput className="h-12 pl-4 rounded-lg mt-3 bg-zinc-800 text-white focus:border-2 focus:border-green-600" placeholder="Exercícios, leitura, etc..." placeholderTextColor={colors.zinc[400]}>
+                <TextInput className="h-12 pl-4 rounded-lg mt-3 bg-zinc-900 text-white border-2 border-zinc-800 focus:border-green-600" placeholder="Exercícios, leitura, etc..." placeholderTextColor={colors.zinc[400]}>
 
                 </TextInput>
                 <Text className="text-white font-semibold mt-4 mb-3 text-base">
@@ -41,7 +41,7 @@ export function CreateHabit() {
                     ))
                 }
 
-                <TouchableOpacity className="w-full h-14 rounded-md bg-green-600 flex-row mt-6 p-3 items-center justify-center">
+                <TouchableOpacity className="w-full h-14 rounded-md bg-green-600 flex-row mt-6 p-3 items-center justify-center" activeOpacity={0.7}>
                     <Feather name="check" size={20} color={colors.white} className="text-white"/>
                     <Text className="text-white text-base ml-2 font-semibold">Confirmar</Text>
                 </TouchableOpacity>
