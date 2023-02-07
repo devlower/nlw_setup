@@ -1,6 +1,8 @@
 import * as Popover from "@radix-ui/react-popover"
 import clsx from "clsx"
 import { ProgressBar } from "./ProgressBar"
+import * as Checkbox from "@radix-ui/react-checkbox"
+import { Check } from "phosphor-react"
 
 interface HabitDayProps {
     completed: number
@@ -26,6 +28,19 @@ export function DayPopover({completed, amount}: HabitDayProps) {
                     <span className="mt-1 font-extrabold leading-tight text-3xl">21/01</span>
 
                     <ProgressBar progress={percentage} />
+
+                    <div className="mt-6 flex flex-col gap-3">
+                        <Checkbox.Root className="flex items-center gap-3">
+                            <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800">
+                            <Checkbox.Indicator>
+                                <Check size={20} className="text-white" />
+                            </Checkbox.Indicator>
+                            </div>
+                            <span className="font-semibold text-xl text-white leading-tight">
+                                Beber 2l de água
+                            </span>
+                        </Checkbox.Root>
+                    </div>
 
                     <Popover.Arrow 
                     height={9} 
