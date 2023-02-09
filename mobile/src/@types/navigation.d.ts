@@ -3,7 +3,7 @@ export declare global {
         interface RootParamList {
             home: undefined
             createHabit: undefined
-            deatilsHabit: {
+            detailsHabit: {
                 date: string
             }
         }

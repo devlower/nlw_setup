@@ -6,17 +6,26 @@ import { PlaceHolder } from "../components/PlaceHolder";
 import { useNavigation } from "@react-navigation/native";
 import { api } from "../lib/axios";
 import { useState, useEffect } from "react";
+import { Loading } from "../components/Loading";
+import dayjs from "dayjs";
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 const summaryDates = generateDatesFromYearBeginning()
 const minimumSummaryDatesSize = 18 * 7
 const amountOfDaysToFill = minimumSummaryDatesSize - summaryDates.length
 
+type SummaryProps = Array<{
+    id: string
+    date: string
+    amount: number
+    completed: number
+}>
+
 export function Home() {
 
     const { navigate } = useNavigation()
     const [loading, setLoading] = useState(true)
-    const [summary, setSummary] = useState(null)
+    const [summary, setSummary] = useState<SummaryProps | null>(null)
 
     async function fetchData(){
         try {
@@ -36,6 +45,12 @@ export function Home() {
         fetchData()
     },[])
 
+    if(loading){
+        return (
+            <Loading/>
+        )
+    }
+
     return (
         <View className="flex-1 bg-background px-8 pt-16">
             <Header/>
@@ -48,18 +63,25 @@ export function Home() {
             </View>
             <ScrollView showsVerticalScrollIndicator={false}
             contentContainerStyle={{paddingBottom:100}}>
-                <View className="flex-row flex-wrap">
+                {
+                    summary &&
+                    <View className="flex-row flex-wrap">
                     {
-                        summaryDates.map(date => (
-                            <HabitDay key={date.toISOString()} onPress={() => navigate('detailsHabit', {date: date.toISOString() })}/>
-                        ))
+                        summaryDates.map(date =>{
+                            const dayWithHabits = summary.find(day => {
+                                return dayjs(date).isSame(day.date, 'day')
+                            })
+
+                            return(
+                            <HabitDay key={date.toISOString()} onPress={() => navigate('detailsHabit', {date: date.toISOString() })} date={date} amountOfHabits={dayWithHabits?.amount} amountCompleted={dayWithHabits?.completed}/>
+                        )})
                     }
                     {amountOfDaysToFill > 0 && Array.from({length: amountOfDaysToFill}).map((_ , i) => {
                         return (
                             <PlaceHolder key={i} />
                         )
                     })}
-                </View>
+                </View>}
             </ScrollView>
         </View>
     )
